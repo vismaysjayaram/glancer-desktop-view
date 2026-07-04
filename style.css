@@ -48,9 +48,9 @@ body{
 	line-height: 0.95;
 }
 .time-card .date {
-	font-size:30px;
+	font-size:20px;
 	margin-top: 5px;
-	font-family: 'Bebas Neue', sans-serif;
+	font-family: 'IBM Plex Serif', sans-serif;
 }
 .calendar {
 	grid-row: 2;
@@ -71,4 +71,10 @@ body{
 }
 .time-card {
 	flex-direction: column
+}
+.colon {
+	animation: blink 1s step-end infinite;
+}
+@keyframes blink {
+	50% {opacity:0;}
 }
