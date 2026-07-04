@@ -20,11 +20,16 @@ body{
 	display: grid;
 	grid-template-columns: 267px 1fr;
 	grid-template-rows: 197px 1fr;
-	gap: 10px;	
+	gap: 24px;	
+	padding:12px;
 }
 .card {
-	background: #333;
+	background: rgba(255,255,255,0.1);
+	backdrop-filter: blur(12px) saturate(150%);
+	-webkit-backdrop-filter: blur(11px);
+	border:1px solid rgba(255, 255, 255, 0.3);
 	border-radius: 24px;
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 	color: white;
 	display: flex;
 	align-items: center;
@@ -33,4 +38,17 @@ body{
 }
 .calendar {
 	grid-row: 2;
+}
+.inner-grid {
+	display: grid;
+	grid-template-columns: repeat(3,1fr);
+	gap:12px;
+}
+.canvas-bg {
+	height: 100%;
+	width: 100%;
+	background-image: url("images/rocco-one.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
