@@ -1,3 +1,9 @@
+@font-face {
+	font-family: 'Bebas Neue';
+	src:url('assets/fonts/BebasNeueRegular.woff');
+	font-weight: normal;
+	font-style: normal;
+}
 *{box-sizing: border-box; margin: 0; padding: 0;}
 
 body{
@@ -36,6 +42,16 @@ body{
 	justify-content: center;
 
 }
+.time-card .clock-digits {
+	font-family: 'Bebas Neue', sans-serif;
+	font-size: 96px;
+	line-height: 0.95;
+}
+.time-card .date {
+	font-size:30px;
+	margin-top: 5px;
+	font-family: 'Bebas Neue', sans-serif;
+}
 .calendar {
 	grid-row: 2;
 }
@@ -52,4 +68,7 @@ body{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+.time-card {
+	flex-direction: column
 }
