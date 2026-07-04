@@ -48,6 +48,7 @@ body{
 	height: 100%;
 	width: 100%;
 	background-image: url("images/rocco-one.jpeg");
+	filter: blur(20px);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
