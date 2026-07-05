@@ -53,9 +53,15 @@ body{
 	margin-top: 5px;
 	font-family: 'IBM Plex Serif', sans-serif;
 }
-.calendar {
+.calendar-card {
 	grid-row: 2;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	padding: 24px;
 }
+
 .inner-grid {
 	display: grid;
 	grid-template-columns: repeat(3,1fr);
@@ -78,4 +84,65 @@ body{
 }
 @keyframes blink {
 	50% {opacity:0;}
+}
+hr {
+	height: 1px;
+	background-color: rgba(255,255,255,1);
+	border: 3px;
+	align-self: stretch;
+}
+ul {
+	list-style: none;
+	width: 100%;
+}
+.events-upnext li {
+	display: flex;
+	justify-content: space-between;
+	padding: 6px 0;
+	border-bottom: 1px solid white;
+}
+.calendar-upnext-event {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+.events-upnext .item-title {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 142px;
+}
+
+.eyebrow {
+	font-size:12px;
+	opacity: 0.80;
+	font-family: 'IBM Plex Serif', serif;
+}
+.later-today {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+.calendar-upnext-time {
+	font-family: "Bebas Neue", sans-serif;
+	font-size: 70px;
+}
+.upnext-event-name {
+	font-size:17px;
+	font-family: 'IBM Plex Serif', serif;
+}
+.upnext-event-intime {
+	font-size:17px;
+	font-family: 'IBM Plex Serif', serif;
+}
+.item-time {
+	font-family: 'IBM Plex Serif', serif;
+	opacity: 0.7;
+  	font-size: 16px;
+}
+.item-title{
+	font-family: 'IBM Plex Serif', serif;
+  	font-size: 16px;
+}
+.events-upnext {
+	font-family: "IBM Plex Serif";
 }
