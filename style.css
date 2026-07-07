@@ -39,9 +39,17 @@ body{
 	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 	color: white;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 
+}
+.weather-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: justify-content;
+	align-items: flex-start;
+	padding: 24px;
 }
 .time-card .clock-digits {
 	font-family: 'Bebas Neue', sans-serif;
@@ -70,7 +78,7 @@ body{
 .canvas-bg {
 	height: 100%;
 	width: 100%;
-	background-image: url("images/rocco-one.jpeg");
+	background-image: url("images/cookieundrocco.jpeg");
 	filter: blur(20px);
     background-size: cover;
     background-position: center;
@@ -145,4 +153,20 @@ ul {
 }
 .events-upnext {
 	font-family: "IBM Plex Serif";
+}
+.weather-icon {
+	height: 30px;
+	width: 30px;
+}
+.temperature {
+	font-family: "Bebas Neue";
+	font-size: 50px;
+}
+.high-low-temp{
+	font-size:15px;
+	font-family: 'IBM Plex Serif', serif;
+}
+.weather-condition {
+	font-size:17px;
+	font-family: 'IBM Plex Serif', serif;
 }
