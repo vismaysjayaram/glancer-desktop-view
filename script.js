@@ -12,7 +12,8 @@ function updateClock(){
 setInterval(updateClock, 1000);
 updateClock();
 
-const test_events = [
+
+/* const test_events = [
   { time: '9:00', title: 'Standup' },
 { time: '10:15', title: 'Email review' },
 { time: '11:55', title: 'Lunch break' },
@@ -28,6 +29,17 @@ const test_events = [
 { time: '22:00', title: 'Plan next day' },
 { time: '23:00', title: 'Wind down' },
 { time: '23:30', title: 'Sleep' },
+];*/
+const test_events = [
+  { time: '7:50', title: 'Registration and Assembly' },
+  { time: '8:00', title: 'Period 2' },
+  { time: '8:55', title: 'Period 3' },
+  { time: '9:50', title: 'Short Break' },
+  { time: '10:05', title: 'Period 4' },
+  { time: '11:00', title: 'Period 5' },
+  { time: '11:55', title: 'Lunch' },
+  { time: '12:20', title: 'Period 6' },
+  { time: '13:10', title: 'Period 7' },
 ];
 // Step 1: convert into usable state
 //takes in an array with objects inside, {time:"number" title:"event"} and converts time from hours to minutes
@@ -266,6 +278,7 @@ const weather_icons = {
   </defs>
 </svg>`
 }
+
 async function updateWeather(){
 	const response = await fetch("https://api.open-meteo.com/v1/forecast?latitude=25.013&longitude=55.288&daily=temperature_2m_max,temperature_2m_min&current=temperature_2m,weather_code&timezone=auto&forecast_days=3")
 	const data = await response.json();
@@ -281,4 +294,60 @@ async function updateWeather(){
 	document.querySelector(".weather-condition").textContent = condition_text;
 	document.querySelector(".weather-icon").innerHTML = icon_svg;
 }
+setInterval(updateWeather, 1800000)
 updateWeather();
+
+// the media card arc!!! ugh this is terriiiiblbllllleeeeee
+function updateSongProgress(duration, progress) {
+	const song_progress = (progress / duration) * 100;
+	document.querySelector(".progress_bar").style.width = song_progress + "%"
+}
+function formatTime(seconds) {
+    seconds = Math.floor(seconds);
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${minutes}:${secs.toString().padStart(2, "0")}`;
+}
+// this function takes an input "playing" as a bool. future me, don't be an idiot. (NOTE: CANCELLED) (NOTE no2: I AM A GENIUS, I REUSED THE FUNCTION!)
+function updateEq(playing){
+	const eq = document.querySelector(".eq")
+	eq.classList.toggle("paused", !playing)
+}
+async function updateMedia() {
+	let track, artist, player_state, duration, progress;
+	try {
+    const response = await fetch("http://192.168.68.72:8080/glancer/music")
+    if (!response.ok) {
+      throw new Error("HTTP Error " + response.status);
+    }
+    const data = await response.json();
+    console.log(data); 
+		track = data.now_playing.track;
+		artist = data.now_playing.artist
+		player_state = data.now_playing.song_playerstate
+		duration = data.now_playing.duration
+		progress = data.now_playing.position
+  } catch (err) {
+    track = null
+    artist = `error ${err} occured `
+    player_state = false    
+    progress = 0
+    duration = 0.1
+  }
+  updateEq(player_state)
+  if (track != null) {
+  	document.querySelector(".song_name_text").textContent = track;
+  	document.querySelector(".artist_name_text").textContent = artist;
+  	document.querySelector(".start_time").textContent = formatTime(progress)
+  	document.querySelector(".end_time").textContent = formatTime(duration)
+  } else {
+  	document.querySelector(".song_name_text").textContent = "Nothing Playing"
+  	document.querySelector(".artist_name_text").textContent = "No artist"
+  	document.querySelector(".start_time").textContent = 0
+  	document.querySelector(".end_time").textContent = 0.01
+  }
+  updateSongProgress(duration, progress)
+}
+
+updateMedia();
+setInterval(updateMedia, 700);
