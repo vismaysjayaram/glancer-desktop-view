@@ -351,3 +351,26 @@ async function updateMedia() {
 
 updateMedia();
 setInterval(updateMedia, 700);
+
+// PHOTO ARC,
+let currentPhoto = 1;
+
+function getPhoto() {
+  const path = `/images/photo-${currentPhoto}.jpeg`;
+
+  const img = new Image();
+  img.onload = () => {
+    document.querySelector(".canvas-bg").style.backgroundImage = `url(${path})`;
+    document.querySelector(".photo-sharp").style.backgroundImage =`url(${path})`;
+    currentPhoto++;
+  };
+  img.onerror = () => {
+    currentPhoto = 1;
+    document.querySelector(".canvas-bg").style.backgroundImage = `url(/images/photo-1.jpeg)`;
+    document.querySelector(".photo-sharp").style.backgroundImage = `url(/images/photo-1.jpeg)`;
+  };
+  img.src = path;
+}
+
+setInterval(getPhoto, 20 * 60 * 1000); // every 20 min
+getPhoto();
