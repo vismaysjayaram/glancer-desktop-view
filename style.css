@@ -194,6 +194,7 @@ ul {
 .weather-condition {
 	font-size:17px;
 	font-family: 'IBM Plex Serif', serif;
+	font-weight: 400;
 }
 
 .song_name_text{
@@ -333,3 +334,33 @@ ul {
 	background-position: center;
 	-webkit-mask-image: radial-gradient(circle, #000 70%, transparent 100%);
 }
+.french-card{
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	padding: 24px;
+}
+.french-word{
+	font-family: "Bebas Neue";
+	font-size: 30px;
+	margin-right: 5px;
+}
+.french-word-span {
+	display: flex;
+	align-items: center;
+}
+.french-def{
+	font-weight: bold;
+	font-size: 16px;
+	font-family: "IBM Plex Serif";
+}
+
+.french-def-big{
+	font-family: "IBM Plex Serif", serif;
+	font-size: 12px;
+	margin-top: 5px;
+
+}
+	
+	

@@ -37,6 +37,23 @@ async function getEvents() {
 		renderCalendar(getCurrentEventState());
 	}catch (err) {
     console.log("Mac not reachable, keeping last known calendar");
+    const test_events = [
+  { time: '9:00', title: 'Standup' },
+	{ time: '10:15', title: 'Email review' },
+	{ time: '11:55', title: 'Lunch break' },
+	{ time: '13:00', title: 'Project planning' },
+	{ time: '14:00', title: 'Dentist' },
+	{ time: '15:30', title: 'Client call' },
+	{ time: '16:15', title: 'Code review' },
+	{ time: '17:00', title: 'Workout' },
+	{ time: '18:30', title: 'Dinner Sam' },
+	{ time: '19:30', title: 'Study session' },
+	{ time: '20:15', title: 'Walk' },
+	{ time: '21:00', title: 'Reading' },
+	{ time: '22:00', title: 'Plan next day' },
+	{ time: '23:00', title: 'Wind down' },
+	{ time: '23:30', title: 'Sleep' },
+	];
   }
 }
 setInterval(getEvents, 2 * 60 * 60 * 1000);
@@ -403,3 +420,15 @@ function getPhoto() {
 
 setInterval(getPhoto, 20 * 60 * 1000); // every 20 min
 getPhoto();
+
+// final arc: the french card arc!
+function frenchUpdate(){
+	const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
+	const todayWord = mots[dayOfYear % mots.length];
+	document.querySelector(".french-word").textContent = todayWord.word;
+	document.querySelector(".french-id").textContent = todayWord.pos;
+	document.querySelector(".french-def").textContent = todayWord.translation;
+	document.querySelector(".french-def-big").textContent = todayWord.definition;
+}
+frenchUpdate();
+setInterval(frenchUpdate, 3 * 60 * 60 * 1000); // every 20 min
