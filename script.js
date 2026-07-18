@@ -12,6 +12,35 @@ function updateClock(){
 setInterval(updateClock, 1000);
 updateClock();
 
+function toHHMM(isoString) {
+  const d = new Date(isoString);
+  const hours = String(d.getHours()).padStart(2, '0');
+  const minutes = String(d.getMinutes()).padStart(2, '0');
+  return `${hours}:${minutes}`;
+}
+
+function toTestEventShape(apiEvent) {
+  return {
+    time: apiEvent.all_day ? "23:58" : toHHMM(apiEvent.start),
+    title: apiEvent.title
+  };
+}
+
+let test_events = [];
+
+async function getEvents() {
+	try{
+		const response = await fetch('http://192.168.68.72:8080/glancer/calendar/state.json')
+		const data = await response.json();
+		const events = data.calendar.map(toTestEventShape);
+		test_events = events
+		renderCalendar(getCurrentEventState());
+	}catch (err) {
+    console.log("Mac not reachable, keeping last known calendar");
+  }
+}
+setInterval(getEvents, 2 * 60 * 60 * 1000);
+getEvents();
 
 /* const test_events = [
   { time: '9:00', title: 'Standup' },
@@ -29,7 +58,7 @@ updateClock();
 { time: '22:00', title: 'Plan next day' },
 { time: '23:00', title: 'Wind down' },
 { time: '23:30', title: 'Sleep' },
-];*/
+];
 const test_events = [
   { time: '7:50', title: 'Registration and Assembly' },
   { time: '8:00', title: 'Period 2' },
@@ -40,7 +69,7 @@ const test_events = [
   { time: '11:55', title: 'Lunch' },
   { time: '12:20', title: 'Period 6' },
   { time: '13:10', title: 'Period 7' },
-];
+];*/
 // Step 1: convert into usable state
 //takes in an array with objects inside, {time:"number" title:"event"} and converts time from hours to minutes
 function ConvertEvents(input_events_list) {

@@ -3,7 +3,8 @@ from flask import Flask
 import subprocess
 import json
 from flask_cors import CORS
-from flask import send_from_directory
+from flask import send_from_directory, jsonify
+from calendar_service import get_todays_events
 
 directory_name = "images"
 app = Flask(__name__)
@@ -50,11 +51,16 @@ def serve_photo(filename):
 @app.route("/glancer")
 def serve_dashboard():
     return send_from_directory(".", "index.html")
-    
+
 @app.route("/<path:filename>")
 def serve_static(filename):
     return send_from_directory(".", filename)
 
+@app.route("/glancer/calendar/state.json")
+def get_state():
+    state = {}
+    state["calendar"] = get_todays_events()
+    return jsonify(state)
 
 #no clue what this does, scared to touch it :(
 if __name__ == "__main__":
