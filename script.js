@@ -12,6 +12,52 @@ function updateClock(){
 setInterval(updateClock, 1000);
 updateClock();
 
+function toHHMM(isoString) {
+  const d = new Date(isoString);
+  const hours = String(d.getHours()).padStart(2, '0');
+  const minutes = String(d.getMinutes()).padStart(2, '0');
+  return `${hours}:${minutes}`;
+}
+
+function toTestEventShape(apiEvent) {
+  return {
+    time: apiEvent.all_day ? "23:58" : toHHMM(apiEvent.start),
+    title: apiEvent.title
+  };
+}
+
+let test_events = [];
+
+async function getEvents() {
+	try{
+		const response = await fetch('http://192.168.68.72:8080/glancer/calendar/state.json')
+		const data = await response.json();
+		const events = data.calendar.map(toTestEventShape);
+		test_events = events
+		renderCalendar(getCurrentEventState());
+	}catch (err) {
+    console.log("Mac not reachable, keeping last known calendar");
+    const test_events = [
+  { time: '9:00', title: 'Standup' },
+	{ time: '10:15', title: 'Email review' },
+	{ time: '11:55', title: 'Lunch break' },
+	{ time: '13:00', title: 'Project planning' },
+	{ time: '14:00', title: 'Dentist' },
+	{ time: '15:30', title: 'Client call' },
+	{ time: '16:15', title: 'Code review' },
+	{ time: '17:00', title: 'Workout' },
+	{ time: '18:30', title: 'Dinner Sam' },
+	{ time: '19:30', title: 'Study session' },
+	{ time: '20:15', title: 'Walk' },
+	{ time: '21:00', title: 'Reading' },
+	{ time: '22:00', title: 'Plan next day' },
+	{ time: '23:00', title: 'Wind down' },
+	{ time: '23:30', title: 'Sleep' },
+	];
+  }
+}
+setInterval(getEvents, 2 * 60 * 60 * 1000);
+getEvents();
 
 /* const test_events = [
   { time: '9:00', title: 'Standup' },
@@ -29,7 +75,7 @@ updateClock();
 { time: '22:00', title: 'Plan next day' },
 { time: '23:00', title: 'Wind down' },
 { time: '23:30', title: 'Sleep' },
-];*/
+];
 const test_events = [
   { time: '7:50', title: 'Registration and Assembly' },
   { time: '8:00', title: 'Period 2' },
@@ -40,7 +86,7 @@ const test_events = [
   { time: '11:55', title: 'Lunch' },
   { time: '12:20', title: 'Period 6' },
   { time: '13:10', title: 'Period 7' },
-];
+];*/
 // Step 1: convert into usable state
 //takes in an array with objects inside, {time:"number" title:"event"} and converts time from hours to minutes
 function ConvertEvents(input_events_list) {
@@ -351,3 +397,38 @@ async function updateMedia() {
 
 updateMedia();
 setInterval(updateMedia, 700);
+
+// PHOTO ARC,
+let currentPhoto = 1;
+
+function getPhoto() {
+  const path = `/images/photo-${currentPhoto}.jpeg`;
+
+  const img = new Image();
+  img.onload = () => {
+    document.querySelector(".canvas-bg").style.backgroundImage = `url(${path})`;
+    document.querySelector(".photo-sharp").style.backgroundImage =`url(${path})`;
+    currentPhoto++;
+  };
+  img.onerror = () => {
+    currentPhoto = 1;
+    document.querySelector(".canvas-bg").style.backgroundImage = `url(/images/photo-1.jpeg)`;
+    document.querySelector(".photo-sharp").style.backgroundImage = `url(/images/photo-1.jpeg)`;
+  };
+  img.src = path;
+}
+
+setInterval(getPhoto, 20 * 60 * 1000); // every 20 min
+getPhoto();
+
+// final arc: the french card arc!
+function frenchUpdate(){
+	const dayOfYear = Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0)) / 86400000);
+	const todayWord = mots[dayOfYear % mots.length];
+	document.querySelector(".french-word").textContent = todayWord.word;
+	document.querySelector(".french-id").textContent = todayWord.pos;
+	document.querySelector(".french-def").textContent = todayWord.translation;
+	document.querySelector(".french-def-big").textContent = todayWord.definition;
+}
+frenchUpdate();
+setInterval(frenchUpdate, 3 * 60 * 60 * 1000); // every 20 min

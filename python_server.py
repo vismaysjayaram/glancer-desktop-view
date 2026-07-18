@@ -3,6 +3,10 @@ from flask import Flask
 import subprocess
 import json
 from flask_cors import CORS
+from flask import send_from_directory, jsonify
+from calendar_service import get_todays_events
+
+directory_name = "images"
 app = Flask(__name__)
 CORS(app)
 #information is the value of the dictionary that we're using. 
@@ -40,6 +44,23 @@ def serve_info():
 	update_server(music_data["song_playerstate"] == "playing", music_data["track"], music_data["artist"], "testing", music_data["duration"], music_data["position"])
 	return information
 
+@app.route("/glancer/images/path:<filename>")
+def serve_photo(filename):
+	return send_from_directory(directory_name, filename)
+
+@app.route("/glancer")
+def serve_dashboard():
+    return send_from_directory(".", "index.html")
+
+@app.route("/<path:filename>")
+def serve_static(filename):
+    return send_from_directory(".", filename)
+
+@app.route("/glancer/calendar/state.json")
+def get_state():
+    state = {}
+    state["calendar"] = get_todays_events()
+    return jsonify(state)
 
 #no clue what this does, scared to touch it :(
 if __name__ == "__main__":
