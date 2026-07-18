@@ -11,6 +11,7 @@ button {
     background: transparent;
     font: inherit;
     cursor: pointer;
+    -webkit-appearance: none;
 }
 body{
 	width:1024px;
@@ -26,7 +27,11 @@ body{
 }
 .canvas-grid {
 	position: absolute;
-	inset: 0;
+	/* inset: 0;*/
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
 	height:768px;
 	z-index:1;
 	display: grid;
@@ -53,7 +58,7 @@ body{
 .weather-card {
 	display: flex;
 	flex-direction: column;
-	justify-content: justify-content;
+	justify-content: flex-start;
 	align-items: flex-start;
 	padding: 24px;
 }
@@ -86,6 +91,12 @@ body{
 	width: 100%;
 	background-image: url("images/cookieundrocco.jpeg");
 	filter: blur(20px);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	z-index: 0;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -102,7 +113,7 @@ body{
 hr {
 	height: 1px;
 	background-color: rgba(255,255,255,1);
-	border: 3px;
+	border: none;
 	align-self: stretch;
 }
 ul {
@@ -183,7 +194,7 @@ ul {
 }
 .artist_name_text{
 	font-family:"IBM Plex Serif", serif ;
-	font-size: 16px;
+	font-size: px;
 }
 .button_icon {
 	height: 30px;
@@ -195,6 +206,8 @@ ul {
 	align-items: flex-end;
 	gap: 4px;
 	height: 20px;
+	transition: transform 1.2s ease;
+	transform-origin: center;
 }
 .eq span {
 	width: 4px;
@@ -206,7 +219,7 @@ ul {
 }
 @keyframes eq {
     0%, 100% {
-        transform: scaleY(0.2);
+        transform: scaleY(0.4);
     }
 
     50% {
@@ -230,9 +243,15 @@ ul {
     animation-delay: -0.1s;
 }
 .eq.paused span {
-	animation-play-state: paused;
-	transition: transform 0.4s ease;
-	transform: scaleY(0.25);
+	/*animation-play-state: paused;*/
+	animation: none;
+}
+.eq span + span {
+	margin-left: 4px;
+}
+
+.eq.paused {
+	transform: scaleY(0.4);
 }
 .media-card{	
 	flex-direction: column;
@@ -246,10 +265,14 @@ ul {
 	margin-top: 5px;
 	display: flex;
 	align-items: flex-start;
-	gap: 8px;
+	/*gap: 8px;*/
+
 	justify-content: space-between;
 	width: 100%;
 	align-items: center;
+}
+.progress_line > * + * {
+	margin-left: 8px;
 }
 .progress_rail {
 	/* position: absolute;
@@ -257,7 +280,7 @@ ul {
 	left: 0;
 	right: 0;*/
 	flex: 1;
-	border-radius: 2;
+	border-radius: 2px;
 	background: rgba(255, 255, 255, 0.1);
 	height: 4px;
 	width: 100%;
@@ -270,7 +293,7 @@ ul {
 	transition: width 0.5s linear;
 }
 .music_time_label{
-	font-size: 9 px;
+	font-size: 9px;
 	font-family: "IBM Plex Serif";
 	font-variant-numeric: tabular-nums;
 }
