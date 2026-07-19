@@ -12,81 +12,31 @@ function updateClock(){
 setInterval(updateClock, 1000);
 updateClock();
 
-function toHHMM(isoString) {
-  const d = new Date(isoString);
-  const hours = String(d.getHours()).padStart(2, '0');
-  const minutes = String(d.getMinutes()).padStart(2, '0');
-  return `${hours}:${minutes}`;
-}
-
-function toTestEventShape(apiEvent) {
-  return {
-    time: apiEvent.all_day ? "23:58" : toHHMM(apiEvent.start),
-    title: apiEvent.title
-  };
-}
-
 let test_events = [];
 
-async function getEvents() {
-	try{
-		const response = await fetch('http://192.168.68.72:8080/glancer/calendar/state.json')
-		const data = await response.json();
-		const events = data.calendar.map(toTestEventShape);
-		test_events = events
-		renderCalendar(getCurrentEventState());
-	}catch (err) {
-    console.log("Mac not reachable, keeping last known calendar");
-    const test_events = [
-  { time: '9:00', title: 'Standup' },
-	{ time: '10:15', title: 'Email review' },
-	{ time: '11:55', title: 'Lunch break' },
-	{ time: '13:00', title: 'Project planning' },
-	{ time: '14:00', title: 'Dentist' },
-	{ time: '15:30', title: 'Client call' },
-	{ time: '16:15', title: 'Code review' },
-	{ time: '17:00', title: 'Workout' },
-	{ time: '18:30', title: 'Dinner Sam' },
-	{ time: '19:30', title: 'Study session' },
-	{ time: '20:15', title: 'Walk' },
-	{ time: '21:00', title: 'Reading' },
-	{ time: '22:00', title: 'Plan next day' },
-	{ time: '23:00', title: 'Wind down' },
-	{ time: '23:30', title: 'Sleep' },
+function getEvents() {
+	test_events = [
+		{ time: '9:00', title: 'Standup' },
+		{ time: '10:15', title: 'Email review' },
+		{ time: '11:55', title: 'Lunch break' },
+		{ time: '13:00', title: 'Project planning' },
+		{ time: '14:00', title: 'Dentist' },
+		{ time: '15:30', title: 'Client call' },
+		{ time: '16:15', title: 'Code review' },
+		{ time: '17:00', title: 'Workout' },
+		{ time: '18:30', title: 'Dinner Sam' },
+		{ time: '19:30', title: 'Study session' },
+		{ time: '20:15', title: 'Walk' },
+		{ time: '21:00', title: 'Reading' },
+		{ time: '22:00', title: 'Plan next day' },
+		{ time: '23:00', title: 'Wind down' },
+		{ time: '23:30', title: 'Sleep' },
 	];
-  }
+	renderCalendar(getCurrentEventState());
 }
 setInterval(getEvents, 2 * 60 * 60 * 1000);
 getEvents();
 
-/* const test_events = [
-  { time: '9:00', title: 'Standup' },
-{ time: '10:15', title: 'Email review' },
-{ time: '11:55', title: 'Lunch break' },
-{ time: '13:00', title: 'Project planning' },
-{ time: '14:00', title: 'Dentist' },
-{ time: '15:30', title: 'Client call' },
-{ time: '16:15', title: 'Code review' },
-{ time: '17:00', title: 'Workout' },
-{ time: '18:30', title: 'Dinner Sam' },
-{ time: '19:30', title: 'Study session' },
-{ time: '20:15', title: 'Walk' },
-{ time: '21:00', title: 'Reading' },
-{ time: '22:00', title: 'Plan next day' },
-{ time: '23:00', title: 'Wind down' },
-{ time: '23:30', title: 'Sleep' },
-];
-const test_events = [
-  { time: '7:50', title: 'Registration and Assembly' },
-  { time: '8:00', title: 'Period 2' },
-  { time: '8:55', title: 'Period 3' },
-  { time: '9:50', title: 'Short Break' },
-  { time: '10:05', title: 'Period 4' },
-  { time: '11:00', title: 'Period 5' },
-  { time: '11:55', title: 'Lunch' },
-  { time: '12:20', title: 'Period 6' },
-  { time: '13:10', title: 'Period 7' },
-];*/
 // Step 1: convert into usable state
 //takes in an array with objects inside, {time:"number" title:"event"} and converts time from hours to minutes
 function ConvertEvents(input_events_list) {
@@ -359,50 +309,28 @@ function updateEq(playing){
 	const eq = document.querySelector(".eq")
 	eq.classList.toggle("paused", !playing)
 }
-async function updateMedia() {
-	let track, artist, player_state, duration, progress;
-	try {
-    const response = await fetch("http://192.168.68.72:8080/glancer/music")
-    if (!response.ok) {
-      throw new Error("HTTP Error " + response.status);
-    }
-    const data = await response.json();
-    console.log(data); 
-		track = data.now_playing.track;
-		artist = data.now_playing.artist
-		player_state = data.now_playing.song_playerstate
-		duration = data.now_playing.duration
-		progress = data.now_playing.position
-  } catch (err) {
-    track = null
-    artist = `error ${err} occured `
-    player_state = false    
-    progress = 0
-    duration = 0.1
-  }
-  updateEq(player_state)
-  if (track != null) {
-  	document.querySelector(".song_name_text").textContent = track;
-  	document.querySelector(".artist_name_text").textContent = artist;
-  	document.querySelector(".start_time").textContent = formatTime(progress)
-  	document.querySelector(".end_time").textContent = formatTime(duration)
-  } else {
-  	document.querySelector(".song_name_text").textContent = "Nothing Playing"
-  	document.querySelector(".artist_name_text").textContent = "No artist"
-  	document.querySelector(".start_time").textContent = 0
-  	document.querySelector(".end_time").textContent = 0.01
-  }
-  updateSongProgress(duration, progress)
+function updateMedia() {
+	const track = "Song title";
+	const artist = "Artist name";
+	const player_state = true;
+	const duration = 210;
+	const progress = 87;
+
+	updateEq(player_state);
+	document.querySelector(".song_name_text").textContent = track;
+	document.querySelector(".artist_name_text").textContent = artist;
+	document.querySelector(".start_time").textContent = formatTime(progress);
+	document.querySelector(".end_time").textContent = formatTime(duration);
+	updateSongProgress(duration, progress);
 }
 
 updateMedia();
-setInterval(updateMedia, 700);
 
 // PHOTO ARC,
 let currentPhoto = 1;
 
 function getPhoto() {
-  const path = `/images/photo-${currentPhoto}.jpeg`;
+  const path = `images/photo-${currentPhoto}.jpeg`;
 
   const img = new Image();
   img.onload = () => {
@@ -412,8 +340,8 @@ function getPhoto() {
   };
   img.onerror = () => {
     currentPhoto = 1;
-    document.querySelector(".canvas-bg").style.backgroundImage = `url(/images/photo-1.jpeg)`;
-    document.querySelector(".photo-sharp").style.backgroundImage = `url(/images/photo-1.jpeg)`;
+    document.querySelector(".canvas-bg").style.backgroundImage = `url(images/photo-1.jpeg)`;
+    document.querySelector(".photo-sharp").style.backgroundImage = `url(images/photo-1.jpeg)`;
   };
   img.src = path;
 }
