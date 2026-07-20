@@ -2,3 +2,5 @@
 .env
 *.scpt
 /__pycache__
+*.log
+*.scpt
