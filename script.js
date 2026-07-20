@@ -406,14 +406,14 @@ function getPhoto() {
 
   const img = new Image();
   img.onload = () => {
-    document.querySelector(".canvas-bg").style.backgroundImage = `url(${path})`;
-    document.querySelector(".photo-sharp").style.backgroundImage =`url(${path})`;
+    document.getElementById('bg-photo').src = path;
+    document.getElementById('sharp-photo').src = path;
     currentPhoto++;
   };
   img.onerror = () => {
     currentPhoto = 1;
-    document.querySelector(".canvas-bg").style.backgroundImage = `url(/images/photo-1.jpeg)`;
-    document.querySelector(".photo-sharp").style.backgroundImage = `url(/images/photo-1.jpeg)`;
+    document.getElementById('bg-photo').src = '/images/photo-1.jpeg';
+    document.getElementById('sharp-photo').src = '/images/photo-1.jpeg';
   };
   img.src = path;
 }
