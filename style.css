@@ -200,24 +200,30 @@ ul {
 .song_name_text{
 	font-family:"Bebas Neue", sans-serif;
 	font-size: 26px;
-	/*white-space: nowrap;
+	white-space: nowrap;
 	overflow: hidden;
-	text-overflow: ellipsis;*/
-
-  	
+	text-overflow: ellipsis;
+	width: 100%;
+	align-self: stretch;
 }
 .artist_name_text{
-	font-family:"IBM Plex Serif", serif ;
-	font-size: px;
-	/*white-space: nowrap;
+	font-family:"IBM Plex Serif", serif;
+	font-size: 14px;
+	white-space: nowrap;
 	overflow: hidden;
-	text-overflow: ellipsis;*/
-
+	text-overflow: ellipsis;
+	width: 100%;
+	align-self: stretch;
 }
 .button_icon {
 	height: 30px;
 	width: 30px;
 	fill: white;
+}
+.column {
+	width: 100%;
+	min-width: 0;
+	align-self: stretch;
 }
 .eq{
 	display: flex;
@@ -279,6 +285,7 @@ ul {
 	position: relative;
 	overflow: hidden;
   	text-overflow: ellipsis;
+  	min-width: 0;
 }
 .progress_line {
 	margin-top: 5px;
