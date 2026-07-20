@@ -56,6 +56,7 @@ For actual always-on use, the server should run persistently via `launchd` rathe
 
 ## Uploading Images
 To add your own images, the process is simple. You'll need .jpeg images (not .jpg). Insert the images into the /images folder, and name them photo-1.jpeg, photo-2.jpeg, and so on. Refresh the dashboard to see them. If you've added Glancer to your homescreen, delete the shortcut, refresh the website, and re-add it. 
+Landscape images are recommended. vertical images may not be processed properly
 
 ## How it works
 
