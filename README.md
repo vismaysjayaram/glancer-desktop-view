@@ -42,7 +42,7 @@ On the actual iPad, open the same address in Safari and "Add to Home Screen" so 
 - Weather from Open-Meteo, current temp plus high/low, no API key needed,
 - Now playing, read straight from Music.app on the Mac via AppleScript,
 - Photo panel that cycles through your own photos,
-- French word of the day, from a large list since i was too lazy to do yet another API
+- French word of the day, from a large list, (I don't want another API...)
 
 ## Running it locally
 
@@ -68,7 +68,7 @@ The calendar service is also pretty simple. It connects to iCloud over CalDAV us
 
 To get the music, we just have a bit of applescript to draw player states, nothing special. 
 
-Use at your own peril. This project is liable to break at anytime. :)
+(Use at your own peril. This project is liable to break at anytime. :) )
 
 ## AI Usage
 A little ai was used to learn about python and applescript, because most tutorials I found were from 2013. AI was also used for calendar_service.py, because CalDav was not playing nice with me. AI was finally used to create mots.js, simply because i had no clue if there was a nicely formatted list of french words on the internet that wasn't overwhelming to use. 
