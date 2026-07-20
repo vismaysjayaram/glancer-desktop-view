@@ -54,6 +54,9 @@ You need:
 
 For actual always-on use, the server should run persistently via `launchd` rather than a terminal window you have to keep open. Create a p-list in that case, and just fill in the boilerplate according to your OS. 
 
+## Uploading Images
+To add your own images, the process is simple. You'll need .jpeg images (not .jpg). Insert the images into the /images folder, and name them photo-1.jpeg, photo-2.jpeg, and so on. Refresh the dashboard to see them. If you've added Glancer to your homescreen, delete the shortcut, refresh the website, and re-add it. 
+
 ## How it works
 
 The whole frontend is handwritten HTML/CSS/JS, no frameworks, no build tools. In an age where most software gets scaffolded, generated, or assembled from someone else's components, this one is simple, handwritten, and built, maintained, and used by exactly one person.
