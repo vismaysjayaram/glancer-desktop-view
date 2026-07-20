@@ -396,7 +396,7 @@ async function updateMedia() {
 }
 
 updateMedia();
-setInterval(updateMedia, 700);
+setInterval(updateMedia, 1200);
 
 // PHOTO ARC,
 let currentPhoto = 1;
